@@ -7,10 +7,12 @@
 #include <stdbool.h>
 #include <stdarg.h>
 
-// PERIODIC CYCLES:
-//      for input            i: 0,1,2,3,4,5,6,7,8,...
-//      get periodic output  o: 0,1,2,0,1,2,0,1,2,...
-// m:-1, p:1, z:0
+//######################PERIODIC CYCLES:###################################
+//    for input            i: 0,1,2,3,4,5,6,7,8,...
+//    get periodic output  o: 0,1,0,1,0,1,0,1,0,...
+//    NOTATION:
+//      m:-1, p:1, z:0
+//      cycleN_...: N is period of the cycle
 #define cycle2_zp(i) (i % 2)
 #define cycle2_pz(i) ((i + 1) % 2)
 #define cycle2_mz(i) ((i % 2) - 1)
@@ -58,13 +60,13 @@
 #define cycle6_pmzzmp(i) (cycle6_zmzzzp(i) + cycle6_pzzzmz(i))
 
 
-// ################### VARIADIC MACROS:##########################
-//  FOR_EACH:      
+//##############################VARIADIC MACROS###############################
+//  FOR_EACH:
 //     Apply arbitrary macro to each arg in __VA_ARGS__
 //     Can work up to 63 args, :
 //              1- Copy FOR_EACH_N
 //              2- Add integers up to N to FOR_EACH_RSEQ_N and FOR_EACH_ARG_N
-// 
+//
 //  FOR_EACH_NARG-> Count number of args in __VA_ARGS__
 
 #define CONCATENATE(arg1, arg2) CONCATENATE1(arg1, arg2)
@@ -115,7 +117,6 @@
 #define OL2(x,y)
 #define OL3(x,y,z)
 // EXAMPLE:
-
 // FOO(World, !)         # expands to FOO2(World, !)
 // FOO(foo,bar,baz)      # expands to FOO3(foo,bar,baz)
 #endif // MACROS
